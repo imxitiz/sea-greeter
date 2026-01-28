@@ -131,6 +131,18 @@ browser_set_overall_boundary(GPtrArray *browsers)
   }
 }
 
+/**
+ * Finalizes Browser initialization after construction.
+ *
+ * Applies monitor-based default size and styling, registers window actions,
+ * generates and stores the browser identifier and metadata, and configures
+ * developer tools and UI: in debug mode enables developer tools and inserts
+ * a menu bar; otherwise disables developer tools and attempts to fullscreen
+ * the window on the browser's monitor (falling back to a regular fullscreen
+ * if the monitor is not found).
+ *
+ * @param object A Browser instance (as a GObject) that has just been constructed.
+ */
 static void
 browser_constructed(GObject *object)
 {
