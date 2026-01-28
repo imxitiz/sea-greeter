@@ -172,7 +172,13 @@ browser_constructed(GObject *object)
     g_object_unref(builder);
   } else {
     browser_web_view_set_developer_tools(browser->web_view, false);
-    gtk_window_fullscreen(GTK_WINDOW(browser));
+    int n_monitors = gdk_display_get_n_monitors(display);
+    for (int i = 0; i < n_monitors; i++) {
+      if (gdk_display_get_monitor(display, i) == browser->monitor) {
+        gtk_window_fullscreen_on_monitor(GTK_WINDOW(browser), screen, i);
+        break;
+      }
+    }
   }
 }
 
